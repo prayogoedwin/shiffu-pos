@@ -57,7 +57,13 @@ class Checkout extends Component
     }
 
     public function calculateTotal() {
-        return Cart::instance($this->cart_instance)->total() + $this->shipping;
+        // return Cart::instance($this->cart_instance)->total() + $this->shipping;
+         // Konversi nilai string menjadi numerik jika diperlukan
+        $cartTotal = floatval(Cart::instance($this->cart_instance)->total());
+        $shipping = floatval($this->shipping);
+
+        // Lakukan penambahan pada nilai numerik
+        return $cartTotal + $shipping;
     }
 
     public function resetCart() {
