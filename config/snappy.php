@@ -35,12 +35,13 @@ return [
 
     'pdf' => [
         'enabled' => true,
-        //'binary'  => env('WKHTML_PDF_BINARY', base_path('vendor/h4cc/wkhtmltopdf-amd64/bin/wkhtmltopdf-amd64'),),
-        'binary'  => env('WKHTML_PDF_BINARY', 'C:\\wkhtmltopdf\\bin\\wkhtmltopdf.exe'),
+        // 'binary' => base_path('vendor/h4cc/wkhtmltopdf-amd64/bin/wkhtmltopdf-amd64'),
+        'binary'  => '/usr/local/bin/wkhtmltopdf',
+        //'binary' => '"C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf"',
         'timeout' => false,
         'options' => [
             'enable-local-file-access' => true,
-            'print-media-type' => true
+            'keep-relative-links' => true,
         ],
         'env'     => [],
     ],
