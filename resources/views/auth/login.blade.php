@@ -10,7 +10,7 @@
     <!-- Favicon -->
     <link rel="icon" href="{{ asset('images/favicon.png') }}">
     <!-- CoreUI CSS -->
-    <link rel="stylesheet" href="{{ mix('css/app.css') }}" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}" crossorigin="anonymous">
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 </head>
@@ -19,7 +19,7 @@
 <div class="container">
     <div class="row mb-3">
         <div class="col-12 d-flex justify-content-center">
-            <img width="200" src="{{ asset('images/logo-dark.png') }}" alt="Logo">
+            <img width="200" src="{{ asset('images/logo.png') }}" alt="Logo">
         </div>
     </div>
     <div class="row justify-content-center">
@@ -83,8 +83,7 @@
             </div>
 
             <p class="text-center mt-5 lead">
-                Developed By
-                <a href="https://fahimanzam.netlify.app" class="font-weight-bold text-primary">Fahim Anzam Dip</a>
+                <a href="shiffumediatek.co.id" class="font-weight-bold text-primary">Shiffu Media Teknologi</a>
             </p>
         </div>
     </div>

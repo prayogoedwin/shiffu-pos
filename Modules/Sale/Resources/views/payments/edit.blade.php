@@ -67,6 +67,8 @@
                                             <label for="payment_method">Payment Method <span class="text-danger">*</span></label>
                                             <select class="form-control" name="payment_method" id="payment_method" required>
                                                 <option {{ $salePayment->payment_method == 'Cash' ? 'selected' : '' }} value="Cash">Cash</option>
+                                                <option {{ $salePayment->payment_method == 'Gopay' ? 'selected' : '' }} value="Gopay">Gopay</option>
+                                                <option {{ $salePayment->payment_method == 'ShopeePay' ? 'selected' : '' }} value="ShopeePay">ShopeePay</option>
                                                 <option {{ $salePayment->payment_method == 'Credit Card' ? 'selected' : '' }} value="Credit Card">Credit Card</option>
                                                 <option {{ $salePayment->payment_method == 'Bank Transfer' ? 'selected' : '' }} value="Bank Transfer">Bank Transfer</option>
                                                 <option {{ $salePayment->payment_method == 'Cheque' ? 'selected' : '' }} value="Cheque">Cheque</option>

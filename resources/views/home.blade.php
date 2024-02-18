@@ -26,7 +26,7 @@
                 </div>
             </div>
 
-            <div class="col-md-6 col-lg-3">
+            <div class="col-md-6 col-lg-3" hidden>
                 <div class="card border-0">
                     <div class="card-body p-0 d-flex align-items-center shadow-sm">
                         <div class="bg-gradient-warning p-4 mfe-3 rounded-left">
@@ -40,7 +40,7 @@
                 </div>
             </div>
 
-            <div class="col-md-6 col-lg-3">
+            <div class="col-md-6 col-lg-3" hidden>
                 <div class="card border-0">
                     <div class="card-body p-0 d-flex align-items-center shadow-sm">
                         <div class="bg-gradient-success p-4 mfe-3 rounded-left">
@@ -71,7 +71,7 @@
         @endcan
 
         @can('show_weekly_sales_purchases|show_month_overview')
-        <div class="row mb-4">
+        <div class="row mb-4" hidden>
             @can('show_weekly_sales_purchases')
             <div class="col-lg-7">
                 <div class="card border-0 shadow-sm h-100">
@@ -102,7 +102,7 @@
         @endcan
 
         @can('show_monthly_cashflow')
-        <div class="row">
+        <div class="row" hidden>
             <div class="col-lg-12">
                 <div class="card border-0 shadow-sm">
                     <div class="card-header">

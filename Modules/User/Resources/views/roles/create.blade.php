@@ -255,7 +255,7 @@
                                 </div>
 
                                 <!-- Quotations Permission -->
-                                <div class="col-lg-4 col-md-6 mb-3">
+                                <div class="col-lg-4 col-md-6 mb-3" hidden>
                                     <div class="card h-100 border-0 shadow">
                                         <div class="card-header">
                                             Quotaions
@@ -324,7 +324,7 @@
                                 </div>
 
                                 <!-- Expenses Permission -->
-                                <div class="col-lg-4 col-md-6 mb-3">
+                                <div class="col-lg-4 col-md-6 mb-3" hidden>
                                     <div class="card h-100 border-0 shadow">
                                         <div class="card-header">
                                             Expenses
@@ -430,7 +430,7 @@
                                 </div>
 
                                 <!-- Suppliers Permission -->
-                                <div class="col-lg-4 col-md-6 mb-3">
+                                <div class="col-lg-4 col-md-6 mb-3" hidden>
                                     <div class="card h-100 border-0 shadow">
                                         <div class="card-header">
                                             Suppliers
@@ -552,7 +552,7 @@
                                 </div>
 
                                 <!-- Sale Returns Permission -->
-                                <div class="col-lg-4 col-md-6 mb-3">
+                                <div class="col-lg-4 col-md-6 mb-3" hidden>
                                     <div class="card h-100 border-0 shadow">
                                         <div class="card-header">
                                             Sale Returns
@@ -613,7 +613,7 @@
                                 </div>
 
                                 <!-- Purchases Permission -->
-                                <div class="col-lg-4 col-md-6 mb-3">
+                                <div class="col-lg-4 col-md-6 mb-3" hidden>
                                     <div class="card h-100 border-0 shadow">
                                         <div class="card-header">
                                             Purchases
@@ -674,7 +674,7 @@
                                 </div>
 
                                 <!-- Purchases Returns Permission -->
-                                <div class="col-lg-4 col-md-6 mb-3">
+                                <div class="col-lg-4 col-md-6 mb-3" hidden>
                                     <div class="card h-100 border-0 shadow">
                                         <div class="card-header">
                                             Purchase Returns

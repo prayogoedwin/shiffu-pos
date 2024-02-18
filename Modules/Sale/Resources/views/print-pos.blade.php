@@ -115,7 +115,7 @@
                         Amount: {{ format_currency($sale->paid_amount) }}
                     </td>
                 </tr>
-                <tr style="border-bottom: 0;">
+                <tr style="border-bottom: 0;" hidden>
                     <td class="centered" colspan="3">
                         <div style="margin-top: 10px;">
                             {!! \Milon\Barcode\Facades\DNS1DFacade::getBarcodeSVG($sale->reference, 'C128', 1, 25, 'black', false) !!}
