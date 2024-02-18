@@ -1,14 +1,12 @@
 <picture>
-    <source srcset="public/images/logo.png"  
-            media="(prefers-color-scheme: dark)">
-    <img src="public/images/logo-dark.png" alt="App Logo">
+    <img src="public/images/logo.png" alt="App Logo">
 </picture>
 
 > **Important Note:** This Project is ready for Production. But use code from main branch only. If you find any bug or have any suggestion please create an Issue.
 
 # Local Installation
 
--   run `git clone https://github.com/FahimAnzamDip/triangle-pos.git`
+-   run `git clone https://prayogoedwin@bitbucket.org/prayogoedwin/shiffupos.git`
 -   run `composer install `
 -   run `npm install`
 -   run `npm run dev`
