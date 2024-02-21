@@ -53,7 +53,7 @@
             </div>
         </div>
         {{-- Sale Returns --}}
-        <div class="col-12 col-lg-4">
+        <div class="col-12 col-lg-4" hidden>
             <div class="card border-0 shadow-sm">
                 <div class="card-body p-3 d-flex align-items-center">
                     <div class="bg-primary p-3 mfe-3 rounded">
@@ -81,7 +81,7 @@
             </div>
         </div>
         {{-- Purchases --}}
-        <div class="col-12 col-lg-4">
+        <div class="col-12 col-lg-4" hidden>
             <div class="card border-0 shadow-sm">
                 <div class="card-body p-3 d-flex align-items-center">
                     <div class="bg-primary p-3 mfe-3 rounded">
@@ -95,7 +95,7 @@
             </div>
         </div>
         {{-- Purchase Returns --}}
-        <div class="col-12 col-lg-4">
+        <div class="col-12 col-lg-4" hidden>
             <div class="card border-0 shadow-sm">
                 <div class="card-body p-3 d-flex align-items-center">
                     <div class="bg-primary p-3 mfe-3 rounded">
@@ -109,7 +109,7 @@
             </div>
         </div>
         {{-- Expenses --}}
-        <div class="col-12 col-lg-4">
+        <div class="col-12 col-lg-4" hidden>
             <div class="card border-0 shadow-sm">
                 <div class="card-body p-3 d-flex align-items-center">
                     <div class="bg-primary p-3 mfe-3 rounded">
@@ -137,7 +137,7 @@
             </div>
         </div>
         {{-- Payments Sent --}}
-        <div class="col-12 col-lg-4">
+        <div class="col-12 col-lg-4" hidden>
             <div class="card border-0 shadow-sm">
                 <div class="card-body p-3 d-flex align-items-center">
                     <div class="bg-primary p-3 mfe-3 rounded">
