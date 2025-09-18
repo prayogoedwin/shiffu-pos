@@ -65,9 +65,9 @@
             </p>
         </div>
         <p>
-            Date: {{ \Carbon\Carbon::parse($sale->date)->format('d M, Y') }}<br>
-            Reference: {{ $sale->reference }}<br>
-            Name: {{ $sale->customer_name }}
+            Tanggal: {{ \Carbon\Carbon::parse($sale->date)->format('d M, Y') }}<br>
+            No Invoice: {{ $sale->reference }}<br>
+            {{-- Nama: {{ $sale->customer_name }} --}}
         </p>
         <table class="table-data">
             <tbody>
@@ -103,16 +103,23 @@
                 <th colspan="2" style="text-align:left">Grand Total</th>
                 <th style="text-align:right">{{ format_currency($sale->total_amount) }}</th>
             </tr>
+
+            <tr>
+                <td colspan="2" style="text-align:left">  Nominal dibayar</td>
+                <td style="text-align:right"> {{ format_currency($sale->paid_amount) }}</td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align:left">  Kembalian</td>
+                <td style="text-align:right"> {{ format_currency($sale->paid_amount - $sale->total_amount) }}</td>
+            </tr>
             </tbody>
         </table>
         <table>
             <tbody>
+
                 <tr style="background-color:#ddd;">
                     <td class="centered" style="padding: 5px;">
-                        Paid By: {{ $sale->payment_method }}
-                    </td>
-                    <td class="centered" style="padding: 5px;">
-                        Amount: {{ format_currency($sale->paid_amount) }}
+                        {{ $sale->payment_method }}
                     </td>
                 </tr>
                 <tr style="border-bottom: 0;" hidden>
