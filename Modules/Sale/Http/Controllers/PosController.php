@@ -170,6 +170,6 @@ class PosController extends Controller
         toast('POS Sale Created!', 'success');
 
         // Redirect langsung ke PDF invoice
-        return redirect()->route('sales.pos.pdf', $sale->id);
+        return redirect()->route('sales.pos.print', $sale->id);
     }
 }
