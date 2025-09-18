@@ -34,10 +34,10 @@
                     <table class="table">
                         <thead>
                         <tr class="text-center">
-                            <th class="align-middle">Product</th>
-                            <th class="align-middle">Price</th>
-                            <th class="align-middle">Quantity</th>
-                            <th class="align-middle">Action</th>
+                            <th class="align-middle">Produk</th>
+                            <th class="align-middle">Harga</th>
+                            <th class="align-middle">Jumlah</th>
+                            <th class="align-middle">Aksi</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -71,7 +71,7 @@
                             <tr>
                                 <td colspan="8" class="text-center">
                         <span class="text-danger">
-                            Please search & select products!
+                            Silahkan cari & pilih produk!
                         </span>
                                 </td>
                             </tr>
@@ -86,15 +86,15 @@
                     <div class="table-responsive">
                         <table class="table table-striped">
                             <tr>
-                                <th>Order Tax ({{ $global_tax }}%)</th>
+                                <th>Pajak ({{ $global_tax }}%)</th>
                                 <td>(+) {{ format_currency(Cart::instance($cart_instance)->tax()) }}</td>
                             </tr>
                             <tr>
-                                <th>Discount ({{ $global_discount }}%)</th>
+                                <th>Diskon ({{ $global_discount }}%)</th>
                                 <td>(-) {{ format_currency(Cart::instance($cart_instance)->discount()) }}</td>
                             </tr>
                             <tr>
-                                <th>Shipping</th>
+                                <th>Ongkir</th>
                                 <input type="hidden" value="{{ $shipping }}" name="shipping_amount">
                                 <td>(+) {{ format_currency($shipping) }}</td>
                             </tr>
@@ -115,19 +115,19 @@
             <div class="form-row">
                 <div class="col-lg-4">
                     <div class="form-group">
-                        <label for="tax_percentage">Order Tax (%)</label>
+                        <label for="tax_percentage">Pajak (%)</label>
                         <input wire:model.blur="global_tax" type="number" class="form-control" min="0" max="100" value="{{ $global_tax }}" required>
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="form-group">
-                        <label for="discount_percentage">Discount (%)</label>
+                        <label for="discount_percentage">Diskon (%)</label>
                         <input wire:model.blur="global_discount" type="number" class="form-control" min="0" max="100" value="{{ $global_discount }}" required>
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="form-group">
-                        <label for="shipping_amount">Shipping</label>
+                        <label for="shipping_amount">Ongkir</label>
                         <input wire:model.blur="shipping" type="number" class="form-control" min="0" value="0" required step="0.01">
                     </div>
                 </div>
