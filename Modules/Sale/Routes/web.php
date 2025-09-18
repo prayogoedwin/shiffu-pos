@@ -44,6 +44,14 @@ Route::group(['middleware' => 'auth'], function () {
         return $pdf->stream('sale-'. $sale->reference .'.pdf');
     })->name('sales.pos.pdf');
 
+    Route::get('/sales/pos/print/{id}', function ($id) {
+    $sale = \Modules\Sale\Entities\Sale::findOrFail($id);
+
+    return view('sale::print-pos', [
+        'sale' => $sale,
+    ]);
+    })->name('sales.pos.print');
+
     //Sales
     Route::resource('sales', 'SaleController');
 
