@@ -152,7 +152,7 @@
     {{-- <button onclick="window.print()">🖨️ Print Receipt</button> --}}
     <button id="printBtn" onclick="printReceipt()">🖨️ Print Receipt</button>
     {{-- <button onclick="closeWindow()">❌ Close</button> --}}
-    <button onclick="goBack()">⬅️ Back</button>
+    {{-- <button onclick="goBack()">⬅️ Back</button> --}}
     <p style="font-size: 10px; color: #666; margin-top: 5px;">
         Jika tombol print tidak berfungsi, gunakan: <br>
         <strong>Ctrl+P</strong> (Windows) atau <strong>Cmd+P</strong> (Mac)
