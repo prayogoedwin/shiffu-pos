@@ -31,17 +31,18 @@ Route::group(['middleware' => 'auth'], function () {
     })->name('sales.pdf');
 
     Route::get('/sales/pos/pdf/{id}', function ($id) {
-        $sale = \Modules\Sale\Entities\Sale::findOrFail($id);
+        // $sale = \Modules\Sale\Entities\Sale::findOrFail($id);
 
-        $pdf = \PDF::loadView('sale::print-pos', [
-            'sale' => $sale,
-        ])->setPaper('a7')
-            ->setOption('margin-top', 8)
-            ->setOption('margin-bottom', 8)
-            ->setOption('margin-left', 5)
-            ->setOption('margin-right', 5);
+        // $pdf = \PDF::loadView('sale::print-pos', [
+        //     'sale' => $sale,
+        // ])->setPaper('a7')
+        //     ->setOption('margin-top', 8)
+        //     ->setOption('margin-bottom', 8)
+        //     ->setOption('margin-left', 5)
+        //     ->setOption('margin-right', 5);
 
-        return $pdf->stream('sale-'. $sale->reference .'.pdf');
+        // return $pdf->stream('sale-'. $sale->reference .'.pdf');
+         return redirect()->route('sales.pos.print', $id);
     })->name('sales.pos.pdf');
 
     Route::get('/sales/pos/print/{id}', function ($id) {
