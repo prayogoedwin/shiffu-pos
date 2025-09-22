@@ -85,10 +85,30 @@
                 <div class="col-md-12">
                     <div class="table-responsive">
                         <table class="table table-striped">
-                            <tr>
+
+                            @php
+                                // Ambil subtotal dari cart (tanpa tax & discount)
+                                $subtotal = (float) Cart::instance($cart_instance)->subtotal(2, '.', '');
+                                
+                                // Hitung tax berdasarkan input global_tax
+                                $calculated_tax = ($subtotal * $global_tax) / 100;
+                                
+                                // Hitung discount berdasarkan input global_discount  
+                                $calculated_discount = ($subtotal * $global_discount) / 100;
+                                
+                                // Hitung total akhir
+                                $final_total = $subtotal + $calculated_tax - $calculated_discount + (float) $shipping;
+                            @endphp
+
+                            {{-- <tr>
                                 <th>Pajak ({{ $global_tax }}%)</th>
                                 <td>(+) {{ format_currency(Cart::instance($cart_instance)->tax()) }}</td>
+                            </tr> --}}
+                            <tr>
+                                <th>Pajak ({{ $global_tax }}%)</th>
+                                <td>(+) {{ format_currency($calculated_tax) }}</td>
                             </tr>
+
                             <tr>
                                 <th>Diskon ({{ $global_discount }}%)</th>
                                 <td>(-) {{ format_currency(Cart::instance($cart_instance)->discount()) }}</td>
