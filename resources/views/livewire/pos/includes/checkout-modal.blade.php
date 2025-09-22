@@ -71,13 +71,20 @@
                                                 </span>
                                         </td>
                                     </tr>
+                                    @php
+                                        // Hitung pajak manual seperti di halaman utama
+                                        $subtotal = (float) Cart::instance($cart_instance)->subtotal(2, '.', '');
+                                        $calculated_tax = ($subtotal * $global_tax) / 100;
+                                        $calculated_discount = ($subtotal * $global_discount) / 100;
+                                        $final_total = $subtotal + $calculated_tax - $calculated_discount + (float) $shipping;
+                                    @endphp
                                     <tr>
                                         <th>Pajak Pesanan ({{ $global_tax }}%)</th>
-                                        <td>(+) {{ format_currency(Cart::instance($cart_instance)->tax()) }}</td>
+                                        <td>(+) {{ format_currency($calculated_tax) }}</td>
                                     </tr>
                                     <tr>
                                         <th>Diskon ({{ $global_discount }}%)</th>
-                                        <td>(-) {{ format_currency(Cart::instance($cart_instance)->discount()) }}</td>
+                                        <td>(-) {{ format_currency($calculated_discount) }}</td>
                                     </tr>
                                     <tr>
                                         <th>Biaya Pengiriman</th>
@@ -86,11 +93,8 @@
                                     </tr>
                                     <tr class="text-primary">
                                         <th>Grand Total</th>
-                                        @php
-                                            $total_with_shipping = Cart::instance($cart_instance)->total() + (float) $shipping
-                                        @endphp
                                         <th id="grand-total">
-                                            {{ format_currency($total_with_shipping) }}
+                                            {{ format_currency($final_total) }}
                                         </th>
                                     </tr>
                                     <tr>
