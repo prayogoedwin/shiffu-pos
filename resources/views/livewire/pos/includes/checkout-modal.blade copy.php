@@ -38,7 +38,7 @@
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label for="paid_amount">Yang Dibayarkan <span class="text-danger">*</span></label>
-                                        <input id="paid_amount" type="text" class="form-control" name="paid_amount" value="0" required>
+                                        <input id="paid_amount" type="text" class="form-control" name="paid_amount" required>
                                     </div>
                                 </div>
                             </div>
@@ -51,6 +51,7 @@
                                     <option value="Qris">QRIS</option>
                                     <option value="Gojek">Gojek</option>
                                     <option value="Shopee">Shopee</option>
+                                    {{-- <option value="Cheque">Cheque</option> --}}
                                     <option value="Lainnya">Lainnya</option>
                                 </select>
                             </div>
@@ -88,17 +89,21 @@
                                         @php
                                             $total_with_shipping = Cart::instance($cart_instance)->total() + (float) $shipping
                                         @endphp
+                                        {{-- <th>
+                                            (=) {{ format_currency($total_with_shipping) }}
+                                        </th> --}}
                                         <th id="grand-total">
                                             {{ format_currency($total_with_shipping) }}
                                         </th>
                                     </tr>
                                     <tr>
                                         <th>Yang Dibayarkan</th>
-                                        <td id="paid_byuser">0</td>
+                                        <td id="paid_byuser"></td>
+                                        
                                     </tr>
                                     <tr>
                                         <th>Kembalian</th>
-                                        <td id="change">0</td>
+                                        <td id="change"></td>
                                     </tr>
                                 </table>
                             </div>
@@ -116,7 +121,7 @@
 </div>
 
 <script>
-// POS Checkout Calculator - Number Format Only
+// POS Checkout Calculator - Simplified
 document.addEventListener('DOMContentLoaded', function() {
     const paidAmountInput = document.getElementById('paid_amount');
     const paidByUserDisplay = document.getElementById('paid_byuser');
@@ -146,12 +151,13 @@ document.addEventListener('DOMContentLoaded', function() {
         return result;
     }
     
-    // Function untuk format number saja (tanpa Rp dan tanpa desimal)
-    function formatNumber(amount) {
+    // Function untuk format currency
+    function formatCurrency(amount) {
         return new Intl.NumberFormat('id-ID', {
-            minimumFractionDigits: 0,
-            maximumFractionDigits: 0
-        }).format(Math.round(amount));
+            style: 'currency',
+            currency: 'IDR',
+            minimumFractionDigits: 0
+        }).format(amount);
     }
     
     // Ambil grand total
@@ -183,19 +189,19 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('Paid amount:', paidAmount);
         console.log('Grand total:', grandTotal);
         
-        // Update display - hanya angka tanpa Rp
-        paidByUserDisplay.textContent = formatNumber(paidAmount);
+        // Update display
+        paidByUserDisplay.textContent = formatCurrency(paidAmount);
         
         // Calculate change
         const change = paidAmount - grandTotal;
         console.log('Change calculation:', paidAmount, '-', grandTotal, '=', change);
         
-        // Update change display - hanya angka tanpa Rp
+        // Update change display
         if (change >= 0) {
-            changeDisplay.textContent = formatNumber(change);
+            changeDisplay.textContent = formatCurrency(change);
             changeDisplay.className = 'text-success';
         } else {
-            changeDisplay.textContent = formatNumber(Math.abs(change));
+            changeDisplay.textContent = formatCurrency(Math.abs(change));
             changeDisplay.className = 'text-danger';
         }
         
@@ -206,7 +212,7 @@ document.addEventListener('DOMContentLoaded', function() {
     paidAmountInput.addEventListener('input', function(e) {
         console.log('Input event triggered');
         
-        // Format input - hanya angka dengan pemisah ribuan
+        // Format input
         let value = e.target.value.replace(/[^\d]/g, '');
         if (value) {
             const formatted = parseInt(value).toLocaleString('id-ID');
