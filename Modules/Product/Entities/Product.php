@@ -30,7 +30,8 @@ class Product extends Model implements HasMedia
     public function registerMediaConversions(Media $media = null): void {
         $this->addMediaConversion('thumb')
             ->width(50)
-            ->height(50);
+            ->height(50)
+            ->nonOptimized(); // This will skip optimization
     }
 
     public function setProductCostAttribute($value) {
