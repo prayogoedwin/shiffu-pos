@@ -152,7 +152,7 @@ class Checkout extends Component
     // OPSI 1: Reset ke stok maksimal jika melebihi
     if ($this->quantity[$product_id] > $maxStock) {
         $this->quantity[$product_id] = $maxStock; // Reset ke stok maksimal
-        session()->flash('message', 'Stok produk dengan ID '.$product_id.' sudah maksimal');
+        session()->flash('message', 'Stok produk tersebut stok maksimalnya:'. $maxStock);
     }
     
     // OPSI 2: Reset ke 0 jika melebihi (uncomment jika prefer ini)
