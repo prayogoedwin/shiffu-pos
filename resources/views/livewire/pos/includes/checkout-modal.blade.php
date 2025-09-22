@@ -274,8 +274,19 @@ document.addEventListener('DOMContentLoaded', function() {
         const actualValue = cleanToNumber(paidAmountDisplayInput.value);
         paidAmountHiddenInput.value = actualValue;
         
-        console.log('SUBMIT - Display:', paidAmountDisplayInput.value);
-        console.log('SUBMIT - Hidden (sent to backend):', paidAmountHiddenInput.value);
+        console.log('=== SUBMIT DEBUG ===');
+        console.log('Display value:', paidAmountDisplayInput.value);
+        console.log('Cleaned number:', actualValue);
+        console.log('Hidden input value:', paidAmountHiddenInput.value);
+        console.log('Form will send to backend:', actualValue);
+        console.log('===================');
+        
+        // Debug semua form data
+        const formData = new FormData(document.getElementById('checkout-form'));
+        console.log('ALL FORM DATA:');
+        for (let [key, value] of formData.entries()) {
+            console.log(key + ':', value);
+        }
         
         const grandTotal = getGrandTotal();
         
@@ -283,6 +294,12 @@ document.addEventListener('DOMContentLoaded', function() {
             e.preventDefault();
             alert('Jumlah pembayaran tidak boleh kurang dari grand total!');
             paidAmountDisplayInput.focus();
+            return false;
+        }
+        
+        // Tambahkan konfirmasi untuk debugging
+        if (!confirm(`Konfirmasi:\n- Yang Dibayar: ${actualValue}\n- Total: ${grandTotal}\n\nLanjutkan?`)) {
+            e.preventDefault();
             return false;
         }
     });
