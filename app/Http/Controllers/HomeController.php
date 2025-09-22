@@ -31,13 +31,13 @@ class HomeController extends Controller
             }
         }
 
-        $revenue = ($sales - $sale_returns) / 100;
+        $revenue = ($sales - $sale_returns);
         $profit = $revenue - $product_costs;
 
         return view('home', [
             'revenue'          => $revenue,
-            'sale_returns'     => $sale_returns / 100,
-            'purchase_returns' => $purchase_returns / 100,
+            'sale_returns'     => $sale_returns ,
+            'purchase_returns' => $purchase_returns,
             'profit'           => $profit
         ]);
     }
