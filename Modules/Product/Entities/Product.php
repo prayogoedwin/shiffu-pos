@@ -31,7 +31,8 @@ class Product extends Model implements HasMedia
         $this->addMediaConversion('thumb')
             ->width(50)
             ->height(50)
-            ->nonOptimized(); // This will skip optimization
+            ->nonOptimized() // This will skip optimization
+            ->performOnCollections('images'); // Tambah ini
     }
 
     public function setProductCostAttribute($value) {
