@@ -206,9 +206,14 @@ document.addEventListener('DOMContentLoaded', function() {
     paidAmountInput.addEventListener('input', function(e) {
         console.log('Input event triggered');
         
-        // Format input - hanya angka dengan pemisah ribuan
+        // Hapus semua karakter selain angka
         let value = e.target.value.replace(/[^\d]/g, '');
-        if (value) {
+        
+        // Jika kosong, set ke '0'
+        if (!value) {
+            e.target.value = '0';
+        } else {
+            // Format hanya angka dengan pemisah ribuan (tanpa Rp)
             const formatted = parseInt(value).toLocaleString('id-ID');
             e.target.value = formatted;
         }
@@ -220,11 +225,15 @@ document.addEventListener('DOMContentLoaded', function() {
     paidAmountInput.addEventListener('keyup', updateCalculation);
     paidAmountInput.addEventListener('focus', updateCalculation);
     
-    // Initial calculation
+    // Initial calculation dan cleanup
+    paidAmountInput.value = '0'; // Pastikan initial value hanya '0'
     updateCalculation();
     
     // Auto focus saat modal dibuka
     $('#checkoutModal').on('shown.bs.modal', function () {
+        // Reset input ke nilai 0 saja (tanpa Rp)
+        paidAmountInput.value = '0';
+        updateCalculation();
         paidAmountInput.focus();
         paidAmountInput.select();
     });
