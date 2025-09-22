@@ -27,8 +27,8 @@ class Checkout extends Component
         $this->cart_instance = $cartInstance;
         $this->customers = $customers;
         $this->global_discount = 0;
-        $this->global_tax = 0;
-        $this->shipping = 0.00;
+        $this->global_tax = 11;
+        $this->shipping = 0;
         $this->check_quantity = [];
         $this->quantity = [];
         $this->discount_type = [];
