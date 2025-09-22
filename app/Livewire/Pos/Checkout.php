@@ -121,7 +121,7 @@ class Checkout extends Component
         Cart::instance($this->cart_instance)->setGlobalDiscount((integer)$this->global_discount);
     }
 
-    public function updateQuantity($row_id, $product_id) {
+    public function updateQuantity_asli($row_id, $product_id) {
         if ($this->check_quantity[$product_id] < $this->quantity[$product_id]) {
             session()->flash('message', 'The requested quantity is not available in stock.');
 
@@ -145,6 +145,45 @@ class Checkout extends Component
             ]
         ]);
     }
+
+   public function updateQuantity($row_id, $product_id) {
+    $maxStock = $this->check_quantity[$product_id];
+    
+    // OPSI 1: Reset ke stok maksimal jika melebihi
+    if ($this->quantity[$product_id] > $maxStock) {
+        $this->quantity[$product_id] = $maxStock; // Reset ke stok maksimal
+        session()->flash('message', 'Stok produk dengan ID '.$product_id.' sudah maksimal');
+    }
+    
+    // OPSI 2: Reset ke 0 jika melebihi (uncomment jika prefer ini)
+    // if ($this->quantity[$product_id] > $maxStock) {
+    //     $this->quantity[$product_id] = 0;
+    // }
+    
+    // Jika quantity menjadi 0, hapus item dari cart
+    if ($this->quantity[$product_id] <= 0) {
+        $this->removeItem($row_id);
+        return;
+    }
+
+    // Update cart dengan quantity yang sudah disesuaikan
+    Cart::instance($this->cart_instance)->update($row_id, $this->quantity[$product_id]);
+
+    $cart_item = Cart::instance($this->cart_instance)->get($row_id);
+
+    Cart::instance($this->cart_instance)->update($row_id, [
+        'options' => [
+            'sub_total'             => $cart_item->price * $cart_item->qty,
+            'code'                  => $cart_item->options->code,
+            'stock'                 => $cart_item->options->stock,
+            'unit'                  => $cart_item->options->unit,
+            'product_tax'           => $cart_item->options->product_tax,
+            'unit_price'            => $cart_item->options->unit_price,
+            'product_discount'      => $cart_item->options->product_discount,
+            'product_discount_type' => $cart_item->options->product_discount_type,
+        ]
+    ]);
+}
 
     public function updatedDiscountType($value, $name) {
         $this->item_discount[$name] = 0;
