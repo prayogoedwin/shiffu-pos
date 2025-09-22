@@ -38,7 +38,8 @@
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label for="paid_amount">Yang Dibayarkan <span class="text-danger">*</span></label>
-                                        <input id="paid_amount" type="text" class="form-control" name="paid_amount" value="0" required autocomplete="off">
+                                        <input id="paid_amount_display" type="text" class="form-control" value="0" required autocomplete="off">
+                                        <input id="paid_amount" type="hidden" name="paid_amount" value="0">
                                     </div>
                                 </div>
                             </div>
@@ -117,29 +118,39 @@
 
 <style>
 /* Force remove any Rp prefix/suffix dari CSS */
-#paid_amount::before, 
-#paid_amount::after {
+#paid_amount_display::before, 
+#paid_amount_display::after {
     content: '' !important;
     display: none !important;
 }
 
-#paid_amount {
+#paid_amount_display {
     text-align: right !important;
 }
 </style>
 
 <script>
-// POS Checkout Calculator - AGGRESSIVE NUMBER FORMAT ONLY
+// POS Checkout Calculator - FIXED VALUE HANDLING
 document.addEventListener('DOMContentLoaded', function() {
-    const paidAmountInput = document.getElementById('paid_amount');
+    const paidAmountDisplayInput = document.getElementById('paid_amount_display'); // Display input
+    const paidAmountHiddenInput = document.getElementById('paid_amount'); // Hidden input untuk backend
     const paidByUserDisplay = document.getElementById('paid_byuser');
     const changeDisplay = document.getElementById('change');
     
     // Function untuk AGGRESSIVELY clean input - hapus semua selain angka
-    function cleanInput(str) {
-        if (!str) return '';
-        // HAPUS SEMUA SELAIN ANGKA
-        return str.toString().replace(/[^\d]/g, '');
+    function cleanToNumber(str) {
+        if (!str) return 0;
+        // HAPUS SEMUA SELAIN ANGKA dan convert ke number
+        const cleaned = str.toString().replace(/[^\d]/g, '');
+        return parseInt(cleaned) || 0;
+    }
+    
+    // Function untuk format number dengan separator ribuan
+    function formatNumberDisplay(amount) {
+        return new Intl.NumberFormat('id-ID', {
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 0
+        }).format(Math.round(amount));
     }
     
     // Function untuk parse currency Indonesia
@@ -149,16 +160,8 @@ document.addEventListener('DOMContentLoaded', function() {
         // HARDCORE CLEANING - hapus SEMUA selain angka
         let cleaned = str.replace(/[^\d]/g, '');
         const result = parseInt(cleaned) || 0;
-        console.log('Parsed:', str, '→', result);
+        console.log('Parsed currency:', str, '→', result);
         return result;
-    }
-    
-    // Function untuk format number saja (tanpa Rp dan tanpa desimal)
-    function formatNumber(amount) {
-        return new Intl.NumberFormat('id-ID', {
-            minimumFractionDigits: 0,
-            maximumFractionDigits: 0
-        }).format(Math.round(amount));
     }
     
     // Ambil grand total
@@ -177,100 +180,109 @@ document.addEventListener('DOMContentLoaded', function() {
         return total;
     }
     
-    // AGGRESSIVE CLEANUP FUNCTION
-    function forceCleanInput() {
-        let value = paidAmountInput.value;
-        let cleanedValue = cleanInput(value);
+    // MAIN FUNCTION untuk update semua
+    function updateAll() {
+        console.log('=== UPDATE ALL STARTED ===');
         
-        if (!cleanedValue) {
-            paidAmountInput.value = '0';
-        } else {
-            // Format dengan separator ribuan
-            paidAmountInput.value = parseInt(cleanedValue).toLocaleString('id-ID');
-        }
+        // Ambil nilai dari display input
+        const displayValue = paidAmountDisplayInput.value;
+        console.log('Display input value:', displayValue);
         
-        // Force trigger calculation
-        updateCalculation();
-    }
-    
-    // Function untuk update calculation
-    function updateCalculation() {
-        console.log('=== Update Calculation Started ===');
+        // Clean ke number
+        const actualNumber = cleanToNumber(displayValue);
+        console.log('Actual number:', actualNumber);
         
-        const paidAmountStr = paidAmountInput.value;
-        console.log('Input paid amount:', paidAmountStr);
+        // Update hidden input untuk backend
+        paidAmountHiddenInput.value = actualNumber;
+        console.log('Hidden input set to:', paidAmountHiddenInput.value);
         
-        const paidAmount = parseCurrency(paidAmountStr);
-        const grandTotal = getGrandTotal();
-        
-        console.log('Paid amount:', paidAmount);
-        console.log('Grand total:', grandTotal);
-        
-        // Update display - hanya angka tanpa Rp
-        paidByUserDisplay.textContent = formatNumber(paidAmount);
+        // Update display di tabel
+        paidByUserDisplay.textContent = formatNumberDisplay(actualNumber);
         
         // Calculate change
-        const change = paidAmount - grandTotal;
-        console.log('Change calculation:', paidAmount, '-', grandTotal, '=', change);
+        const grandTotal = getGrandTotal();
+        const change = actualNumber - grandTotal;
+        console.log('Change calculation:', actualNumber, '-', grandTotal, '=', change);
         
-        // Update change display - hanya angka tanpa Rp
+        // Update change display
         if (change >= 0) {
-            changeDisplay.textContent = formatNumber(change);
+            changeDisplay.textContent = formatNumberDisplay(change);
             changeDisplay.className = 'text-success';
         } else {
-            changeDisplay.textContent = formatNumber(Math.abs(change));
+            changeDisplay.textContent = formatNumberDisplay(Math.abs(change));
             changeDisplay.className = 'text-danger';
         }
         
-        console.log('=== Update Calculation Finished ===');
+        console.log('=== UPDATE ALL FINISHED ===');
     }
     
-    // SUPER AGGRESSIVE EVENT LISTENERS
-    const events = ['input', 'change', 'paste', 'keyup', 'keydown', 'blur', 'focus'];
+    // Function untuk format display input
+    function formatDisplayInput() {
+        const currentValue = paidAmountDisplayInput.value;
+        const numberValue = cleanToNumber(currentValue);
+        
+        if (numberValue === 0) {
+            paidAmountDisplayInput.value = '0';
+        } else {
+            paidAmountDisplayInput.value = formatNumberDisplay(numberValue);
+        }
+        
+        updateAll();
+    }
+    
+    // EVENT LISTENERS untuk display input
+    const events = ['input', 'change', 'paste', 'keyup', 'blur'];
     
     events.forEach(eventName => {
-        paidAmountInput.addEventListener(eventName, function(e) {
-            // Delay sedikit untuk memastikan value sudah berubah
+        paidAmountDisplayInput.addEventListener(eventName, function(e) {
+            console.log(`Event ${eventName} triggered with value:`, e.target.value);
             setTimeout(() => {
-                forceCleanInput();
+                formatDisplayInput();
             }, 10);
         });
     });
     
-    // Initial setup - PAKSA set ke 0
+    // Initial setup
     setTimeout(() => {
-        paidAmountInput.value = '0';
-        updateCalculation();
+        paidAmountDisplayInput.value = '0';
+        paidAmountHiddenInput.value = '0';
+        updateAll();
     }, 100);
     
     // Auto focus saat modal dibuka
     $('#checkoutModal').on('shown.bs.modal', function () {
-        // PAKSA RESET
         setTimeout(() => {
-            paidAmountInput.value = '0';
-            updateCalculation();
-            paidAmountInput.focus();
-            paidAmountInput.select();
+            paidAmountDisplayInput.value = '0';
+            paidAmountHiddenInput.value = '0';
+            updateAll();
+            paidAmountDisplayInput.focus();
+            paidAmountDisplayInput.select();
         }, 200);
     });
     
-    // Continuous monitoring - check every 500ms untuk memastikan no Rp
+    // Continuous monitoring untuk clean up Rp
     setInterval(() => {
-        if (paidAmountInput.value.includes('Rp') || paidAmountInput.value.includes('rp')) {
+        if (paidAmountDisplayInput.value.includes('Rp') || paidAmountDisplayInput.value.includes('rp')) {
             console.log('DETECTED Rp! CLEANING...');
-            forceCleanInput();
+            formatDisplayInput();
         }
     }, 500);
     
     // Validasi submit
     document.getElementById('checkout-form').addEventListener('submit', function(e) {
-        const paidAmount = parseCurrency(paidAmountInput.value);
+        // Update hidden input sebelum submit
+        const actualValue = cleanToNumber(paidAmountDisplayInput.value);
+        paidAmountHiddenInput.value = actualValue;
+        
+        console.log('SUBMIT - Display:', paidAmountDisplayInput.value);
+        console.log('SUBMIT - Hidden (sent to backend):', paidAmountHiddenInput.value);
+        
         const grandTotal = getGrandTotal();
         
-        if (paidAmount < grandTotal) {
+        if (actualValue < grandTotal) {
             e.preventDefault();
             alert('Jumlah pembayaran tidak boleh kurang dari grand total!');
-            paidAmountInput.focus();
+            paidAmountDisplayInput.focus();
             return false;
         }
     });
