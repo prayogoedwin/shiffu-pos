@@ -38,7 +38,7 @@
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label for="paid_amount">Yang Dibayarkan <span class="text-danger">*</span></label>
-                                        <input id="paid_amount" type="text" class="form-control" name="paid_amount" value="0" required>
+                                        <input id="paid_amount" type="text" class="form-control" name="paid_amount" value="0" required autocomplete="off">
                                     </div>
                                 </div>
                             </div>
@@ -115,34 +115,41 @@
     </div>
 </div>
 
+<style>
+/* Force remove any Rp prefix/suffix dari CSS */
+#paid_amount::before, 
+#paid_amount::after {
+    content: '' !important;
+    display: none !important;
+}
+
+#paid_amount {
+    text-align: right !important;
+}
+</style>
+
 <script>
-// POS Checkout Calculator - Number Format Only
+// POS Checkout Calculator - AGGRESSIVE NUMBER FORMAT ONLY
 document.addEventListener('DOMContentLoaded', function() {
     const paidAmountInput = document.getElementById('paid_amount');
     const paidByUserDisplay = document.getElementById('paid_byuser');
     const changeDisplay = document.getElementById('change');
     
+    // Function untuk AGGRESSIVELY clean input - hapus semua selain angka
+    function cleanInput(str) {
+        if (!str) return '';
+        // HAPUS SEMUA SELAIN ANGKA
+        return str.toString().replace(/[^\d]/g, '');
+    }
+    
     // Function untuk parse currency Indonesia
     function parseCurrency(str) {
         if (!str) return 0;
         
-        // Hapus semua karakter kecuali digit, titik, dan koma
-        let cleaned = str.replace(/[^\d.,]/g, '');
-        console.log('Cleaning:', str, '→', cleaned);
-        
-        // Jika ada koma, split berdasarkan koma (desimal)
-        if (cleaned.includes(',')) {
-            const parts = cleaned.split(',');
-            const integer = parts[0].replace(/\./g, ''); // Hapus titik ribuan
-            const decimal = parts[1] || '0';
-            cleaned = integer + '.' + decimal;
-        } else {
-            // Tidak ada koma, hapus semua titik (ribuan)
-            cleaned = cleaned.replace(/\./g, '');
-        }
-        
-        const result = parseFloat(cleaned) || 0;
-        console.log('Final parsed:', result);
+        // HARDCORE CLEANING - hapus SEMUA selain angka
+        let cleaned = str.replace(/[^\d]/g, '');
+        const result = parseInt(cleaned) || 0;
+        console.log('Parsed:', str, '→', result);
         return result;
     }
     
@@ -168,6 +175,22 @@ document.addEventListener('DOMContentLoaded', function() {
         const total = parseCurrency(grandTotalStr);
         console.log('Parsed grand total:', total);
         return total;
+    }
+    
+    // AGGRESSIVE CLEANUP FUNCTION
+    function forceCleanInput() {
+        let value = paidAmountInput.value;
+        let cleanedValue = cleanInput(value);
+        
+        if (!cleanedValue) {
+            paidAmountInput.value = '0';
+        } else {
+            // Format dengan separator ribuan
+            paidAmountInput.value = parseInt(cleanedValue).toLocaleString('id-ID');
+        }
+        
+        // Force trigger calculation
+        updateCalculation();
     }
     
     // Function untuk update calculation
@@ -202,41 +225,42 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('=== Update Calculation Finished ===');
     }
     
-    // Event listeners
-    paidAmountInput.addEventListener('input', function(e) {
-        console.log('Input event triggered');
-        
-        // Hapus semua karakter selain angka
-        let value = e.target.value.replace(/[^\d]/g, '');
-        
-        // Jika kosong, set ke '0'
-        if (!value) {
-            e.target.value = '0';
-        } else {
-            // Format hanya angka dengan pemisah ribuan (tanpa Rp)
-            const formatted = parseInt(value).toLocaleString('id-ID');
-            e.target.value = formatted;
-        }
-        
-        // Update calculation
-        updateCalculation();
+    // SUPER AGGRESSIVE EVENT LISTENERS
+    const events = ['input', 'change', 'paste', 'keyup', 'keydown', 'blur', 'focus'];
+    
+    events.forEach(eventName => {
+        paidAmountInput.addEventListener(eventName, function(e) {
+            // Delay sedikit untuk memastikan value sudah berubah
+            setTimeout(() => {
+                forceCleanInput();
+            }, 10);
+        });
     });
     
-    paidAmountInput.addEventListener('keyup', updateCalculation);
-    paidAmountInput.addEventListener('focus', updateCalculation);
-    
-    // Initial calculation dan cleanup
-    paidAmountInput.value = '0'; // Pastikan initial value hanya '0'
-    updateCalculation();
+    // Initial setup - PAKSA set ke 0
+    setTimeout(() => {
+        paidAmountInput.value = '0';
+        updateCalculation();
+    }, 100);
     
     // Auto focus saat modal dibuka
     $('#checkoutModal').on('shown.bs.modal', function () {
-        // Reset input ke nilai 0 saja (tanpa Rp)
-        paidAmountInput.value = '0';
-        updateCalculation();
-        paidAmountInput.focus();
-        paidAmountInput.select();
+        // PAKSA RESET
+        setTimeout(() => {
+            paidAmountInput.value = '0';
+            updateCalculation();
+            paidAmountInput.focus();
+            paidAmountInput.select();
+        }, 200);
     });
+    
+    // Continuous monitoring - check every 500ms untuk memastikan no Rp
+    setInterval(() => {
+        if (paidAmountInput.value.includes('Rp') || paidAmountInput.value.includes('rp')) {
+            console.log('DETECTED Rp! CLEANING...');
+            forceCleanInput();
+        }
+    }, 500);
     
     // Validasi submit
     document.getElementById('checkout-form').addEventListener('submit', function(e) {
