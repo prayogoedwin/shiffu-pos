@@ -33,26 +33,26 @@ class Sale extends Model
     }
 
     public function getShippingAmountAttribute($value) {
-        return $value / 100;
+        return $value;
     }
 
     public function getPaidAmountAttribute($value) {
-        return $value / 100;
+        return $value;
     }
 
     public function getTotalAmountAttribute($value) {
-        return $value / 100;
+        return $value;
     }
 
     public function getDueAmountAttribute($value) {
-        return $value / 100;
+        return $value;
     }
 
     public function getTaxAmountAttribute($value) {
-        return $value / 100;
+        return $value;
     }
 
     public function getDiscountAmountAttribute($value) {
-        return $value / 100;
+        return $value;
     }
 }
