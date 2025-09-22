@@ -55,20 +55,6 @@
             </div>
 
             <div class="col-md-6 col-lg-3">
-                <div class="card border-0">
-                    <div class="card-body p-0 d-flex align-items-center shadow-sm">
-                        <div class="bg-gradient-info p-4 mfe-3 rounded-left">
-                            <i class="bi bi-trophy font-2xl"></i>
-                        </div>
-                        <div>
-                            <div class="text-value text-info">{{ number_format($profit) }}</div>
-                            <div class="text-muted text-uppercase font-weight-bold small">Keuntungan</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-lg-3">
                     <div class="card border-0">
                         <div class="card-body p-0 d-flex align-items-center shadow-sm">
                             <div class="bg-gradient-info p-4 mfe-3 rounded-left">
@@ -103,6 +89,20 @@
                             <div>
                                 <div class="text-value text-info">{{ number_format($penjualanTahunini) }}</div>
                                 <div class="text-muted text-uppercase font-weight-bold small">Penjualan Tahun Ini</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-3">
+                    <div class="card border-0">
+                        <div class="card-body p-0 d-flex align-items-center shadow-sm">
+                            <div class="bg-gradient-info p-4 mfe-3 rounded-left">
+                                <i class="bi bi-trophy font-2xl"></i>
+                            </div>
+                            <div>
+                                <div class="text-value text-info">{{ number_format($profit) }}</div>
+                                <div class="text-muted text-uppercase font-weight-bold small">Keuntungan</div>
                             </div>
                         </div>
                     </div>
