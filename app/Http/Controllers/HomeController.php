@@ -34,6 +34,8 @@ class HomeController extends Controller
         $revenue = ($sales - $sale_returns);
         $profit = $revenue - $product_costs;
 
+        $today = Carbon::now()->format('Y-m-d');
+
         $penjualanHariini = Sale::where('created_at', 'like', '%' . $today .
             '%')->sum('total_amount');
 
