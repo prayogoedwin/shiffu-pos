@@ -100,14 +100,15 @@
                                 <div class="col-md-4" hidden>
                                     <div class="form-group">
                                         <label for="product_order_tax">Tax (%)</label>
-                                        <input type="number" class="form-control" name="product_order_tax" value="{{ $product->product_order_tax }}" min="0" max="100">
+                                        {{-- <input type="number" class="form-control" name="product_order_tax" value="{{ $product->product_order_tax }}" min="0" max="100"> --}}
+                                        <input type="number" class="form-control" name="product_order_tax" value="0" min="0" max="100">
                                     </div>
                                 </div>
                                 <div class="col-md-4" hidden>
                                     <div class="form-group">
                                         <label for="product_tax_type">Tax type</label>
                                         <select class="form-control" name="product_tax_type" id="product_tax_type">
-                                            <option value="" selected>None</option>
+                                            <option value="2" selected>None</option>
                                             <option {{ $product->product_tax_type == 1 ? 'selected' : '' }}  value="1">Exclusive</option>
                                             <option {{ $product->product_tax_type == 2 ? 'selected' : '' }} value="2">Inclusive</option>
                                         </select>
