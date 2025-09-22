@@ -20,7 +20,7 @@
                         </div>
                         <div>
                             <div class="text-value text-primary">{{ number_format($revenue) }}</div>
-                            <div class="text-muted text-uppercase font-weight-bold small">Revenue</div>
+                            <div class="text-muted text-uppercase font-weight-bold small">Omset</div>
                         </div>
                     </div>
                 </div>
@@ -62,11 +62,51 @@
                         </div>
                         <div>
                             <div class="text-value text-info">{{ number_format($profit) }}</div>
-                            <div class="text-muted text-uppercase font-weight-bold small">Profit</div>
+                            <div class="text-muted text-uppercase font-weight-bold small">Keuntungan</div>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <div class="col-md-6 col-lg-3">
+                    <div class="card border-0">
+                        <div class="card-body p-0 d-flex align-items-center shadow-sm">
+                            <div class="bg-gradient-info p-4 mfe-3 rounded-left">
+                                <i class="bi bi-cash-coin"></i>
+                            </div>
+                            <div>
+                                <div class="text-value text-info">{{ $penjualanHariini }}</div>
+                                <div class="text-muted text-uppercase font-weight-bold small">Penjualan Hari Ini</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="card border-0">
+                        <div class="card-body p-0 d-flex align-items-center shadow-sm">
+                            <div class="bg-gradient-info p-4 mfe-3 rounded-left">
+                                <i class="bi bi-cash-coin"></i>
+                            </div>
+                            <div>
+                                <div class="text-value text-info">{{ $penjualanBulanini }}</div>
+                                <div class="text-muted text-uppercase font-weight-bold small">Penjualan Bulan Ini</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="card border-0">
+                        <div class="card-body p-0 d-flex align-items-center shadow-sm">
+                            <div class="bg-gradient-info p-4 mfe-3 rounded-left">
+                                <i class="bi bi-cash-coin"></i>
+                            </div>
+                            <div>
+                                <div class="text-value text-info">{{ $penjualanTahunini }}</div>
+                                <div class="text-muted text-uppercase font-weight-bold small">Penjualan Tahun Ini</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
         </div>
         @endcan
 

@@ -34,11 +34,27 @@ class HomeController extends Controller
         $revenue = ($sales - $sale_returns);
         $profit = $revenue - $product_costs;
 
+        $penjualanHariini = Sale::where('created_at', 'like', '%' . $today .
+            '%')->sum('total_amount');
+
+        $month = Carbon::now()->format('Y-m');
+        $penjualanBulanan = Sale::where('created_at', 'like', '%' .
+            $month . '%')->sum('total_amount');
+
+        $year = Carbon::now()->format('Y');
+        $penjualanTahunini = Sale::where('created_at', 'like', '%' .
+            $year . '%')->sum('total_amount');
+
+            
+
         return view('home', [
             'revenue'          => $revenue,
             'sale_returns'     => $sale_returns ,
             'purchase_returns' => $purchase_returns,
-            'profit'           => $profit
+            'profit'           => $profit,
+            'penjualanHariini' => $penjualanHariini,
+            'penjualanBulanini' => $penjualanBulanan,
+            'penjualanTahunini' => $penjualanTahunini,
         ]);
     }
 
