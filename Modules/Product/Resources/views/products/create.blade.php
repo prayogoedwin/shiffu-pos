@@ -123,7 +123,7 @@
                                     <div class="form-group">
                                         <label for="product_tax_type">Tax type</label>
                                         <select class="form-control" name="product_tax_type" id="product_tax_type">
-                                            <option value="2" selected >Select Tax Type</option>
+                                            <option value="" selected >Select Tax Type</option>
                                             <option value="1">Exclusive</option>
                                             <option value="2">Inclusive</option>
                                         </select>
