@@ -116,7 +116,8 @@
                 <div class="col-lg-4">
                     <div class="form-group">
                         <label for="tax_percentage">Pajak (%)</label>
-                        <input wire:model.blur="global_tax" type="number" class="form-control" min="0" max="100" value="{{ $global_tax }}" required>
+                        {{-- <input wire:model.blur="global_tax" type="number" class="form-control" min="0" max="100" value="{{ $global_tax }}" required> --}}
+                        <input wire:model.blur="global_tax" type="number" class="form-control" min="0" max="100" value="11" required>
                     </div>
                 </div>
                 <div class="col-lg-4">
