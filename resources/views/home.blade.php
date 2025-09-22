@@ -75,7 +75,7 @@
                                 <i class="bi bi-cash-coin"></i>
                             </div>
                             <div>
-                                <div class="text-value text-info">{{ $penjualanHariini }}</div>
+                                <div class="text-value text-info">{{ number_format($penjualanHariini) }}</div>
                                 <div class="text-muted text-uppercase font-weight-bold small">Penjualan Hari Ini</div>
                             </div>
                         </div>
@@ -88,7 +88,7 @@
                                 <i class="bi bi-cash-coin"></i>
                             </div>
                             <div>
-                                <div class="text-value text-info">{{ $penjualanBulanini }}</div>
+                                <div class="text-value text-info">{{ number_format($penjualanBulanini) }}</div>
                                 <div class="text-muted text-uppercase font-weight-bold small">Penjualan Bulan Ini</div>
                             </div>
                         </div>
@@ -101,7 +101,7 @@
                                 <i class="bi bi-cash-coin"></i>
                             </div>
                             <div>
-                                <div class="text-value text-info">{{ $penjualanTahunini }}</div>
+                                <div class="text-value text-info">{{ number_format($penjualanTahunini) }}</div>
                                 <div class="text-muted text-uppercase font-weight-bold small">Penjualan Tahun Ini</div>
                             </div>
                         </div>
