@@ -16,7 +16,7 @@ if (!function_exists('format_currency')) {
             return $value;
         }
 
-        return number_format(value);
+        return number_format($value);
 
         // $settings = settings();
         // $position = $settings->default_currency_position;
