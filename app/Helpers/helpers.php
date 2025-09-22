@@ -23,9 +23,9 @@ if (!function_exists('format_currency')) {
         $thousand_separator = $settings->currency->thousand_separator;
 
         if ($position == 'prefix') {
-            $formatted_value = $symbol . number_format((float) $value, 2, $decimal_separator, $thousand_separator);
+            $formatted_value = $symbol . number_format((float) $value, 0, $decimal_separator, $thousand_separator);
         } else {
-            $formatted_value = number_format((float) $value, 2, $decimal_separator, $thousand_separator) . $symbol;
+            $formatted_value = number_format((float) $value, 0, $decimal_separator, $thousand_separator) . $symbol;
         }
 
         return $formatted_value;
