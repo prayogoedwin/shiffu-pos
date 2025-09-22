@@ -19,7 +19,7 @@
                             <i class="bi bi-bar-chart font-2xl"></i>
                         </div>
                         <div>
-                            <div class="text-value text-primary">{{ format_currency($revenue) }}</div>
+                            <div class="text-value text-primary">{{ number_format($revenue) }}</div>
                             <div class="text-muted text-uppercase font-weight-bold small">Revenue</div>
                         </div>
                     </div>
@@ -33,7 +33,7 @@
                             <i class="bi bi-arrow-return-left font-2xl"></i>
                         </div>
                         <div>
-                            <div class="text-value text-warning">{{ format_currency($sale_returns) }}</div>
+                            <div class="text-value text-warning">{{ number_format($sale_returns) }}</div>
                             <div class="text-muted text-uppercase font-weight-bold small">Sales Return</div>
                         </div>
                     </div>
@@ -47,7 +47,7 @@
                             <i class="bi bi-arrow-return-right font-2xl"></i>
                         </div>
                         <div>
-                            <div class="text-value text-success">{{ format_currency($purchase_returns) }}</div>
+                            <div class="text-value text-success">{{ number_format($purchase_returns) }}</div>
                             <div class="text-muted text-uppercase font-weight-bold small">Purchases Return</div>
                         </div>
                     </div>
@@ -61,7 +61,7 @@
                             <i class="bi bi-trophy font-2xl"></i>
                         </div>
                         <div>
-                            <div class="text-value text-info">{{ format_currency($profit) }}</div>
+                            <div class="text-value text-info">{{ number_format($profit) }}</div>
                             <div class="text-muted text-uppercase font-weight-bold small">Profit</div>
                         </div>
                     </div>
