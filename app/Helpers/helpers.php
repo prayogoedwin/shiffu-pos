@@ -16,19 +16,21 @@ if (!function_exists('format_currency')) {
             return $value;
         }
 
-        $settings = settings();
-        $position = $settings->default_currency_position;
-        $symbol = $settings->currency->symbol;
-        $decimal_separator = $settings->currency->decimal_separator;
-        $thousand_separator = $settings->currency->thousand_separator;
+        return number_format(value);
 
-        if ($position == 'prefix') {
-            $formatted_value = $symbol . number_format((float) $value, 0, $decimal_separator, $thousand_separator);
-        } else {
-            $formatted_value = number_format((float) $value, 0, $decimal_separator, $thousand_separator) . $symbol;
-        }
+        // $settings = settings();
+        // $position = $settings->default_currency_position;
+        // $symbol = $settings->currency->symbol;
+        // $decimal_separator = $settings->currency->decimal_separator;
+        // $thousand_separator = $settings->currency->thousand_separator;
 
-        return $formatted_value;
+        // if ($position == 'prefix') {
+        //     $formatted_value = $symbol . number_format((float) $value, 0, $decimal_separator, $thousand_separator);
+        // } else {
+        //     $formatted_value = number_format((float) $value, 0, $decimal_separator, $thousand_separator) . $symbol;
+        // }
+
+        // return $formatted_value;
     }
 }
 
